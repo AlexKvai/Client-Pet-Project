@@ -1,18 +1,30 @@
+'use client'
+
+import { useQuery } from '@tanstack/react-query'
 import { FC } from 'react'
 
 import CardItem from '../card-item/CardItem'
+import Loader from '../loader/Loader'
 
-import { cardsData } from '@/datas/cardsData'
+import { articleService } from '@/services/article.service'
 
 const CardsList: FC = () => {
+	const { data, isLoading } = useQuery({
+		queryKey: ['articleGetAll'],
+		queryFn: () => articleService.getAll()
+	})
 	return (
 		<div className='flex flex-wrap justify-center items-center'>
-			{cardsData.map(cardItem => (
-				<CardItem
-					key={cardItem.title}
-					{...cardItem}
-				/>
-			))}
+			{isLoading ? (
+				<Loader />
+			) : (
+				data?.map(cardItem => (
+					<CardItem
+						key={cardItem.title}
+						{...cardItem}
+					/>
+				))
+			)}
 		</div>
 	)
 }
