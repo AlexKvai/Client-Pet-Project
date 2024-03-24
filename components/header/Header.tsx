@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
+import toast from 'react-hot-toast'
 
 import { useAuthContext } from '@/hooks/useAuth'
 
@@ -40,7 +41,10 @@ const Header: FC = () => {
 					) : (
 						<Button
 							title='Выйти'
-							onClick={() => mutate()}
+							onClick={() => {
+								toast.success('Успешный выход')
+								mutate()
+							}}
 						/>
 					)}
 				</div>
