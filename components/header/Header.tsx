@@ -8,6 +8,8 @@ import { FC } from 'react'
 
 import { useAuthContext } from '@/hooks/useAuth'
 
+import Button from '../ui/buttons/Button'
+
 import { authService } from '@/services/auth.service'
 
 const Header: FC = () => {
@@ -36,7 +38,10 @@ const Header: FC = () => {
 							<Link href={'/register'}>Зарегистрироваться</Link>
 						</>
 					) : (
-						<button onClick={() => mutate()}>Выйти</button>
+						<Button
+							title='Выйти'
+							onClick={() => mutate()}
+						/>
 					)}
 				</div>
 			</div>
