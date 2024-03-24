@@ -24,13 +24,18 @@ const AuthPage: FC = () => {
 	const { mutate } = useMutation({
 		mutationKey: ['login'],
 		mutationFn: (data: IAuthForm) => {
-			setIsAuth(data)
-			return authService.login(data)
-		},
-		onSuccess() {
-			toast.success('Успешная авторизация')
-			reset()
-			push(PAGES.HOME)
+			return authService
+				.login(data)
+				.then(response => {
+					setIsAuth(response)
+					toast.success('Успешная авторизация')
+					reset()
+					push(PAGES.HOME)
+				})
+				.catch(error => {
+					console.error('Ошибка авторизации:', error)
+					toast.error('Произошла ошибка при авторизации')
+				})
 		}
 	})
 
