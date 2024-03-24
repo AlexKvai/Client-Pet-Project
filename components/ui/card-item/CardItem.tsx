@@ -1,6 +1,7 @@
-import { ICard } from '@/interfaces/ICard.interface'
 import Image from 'next/image'
 import { FC } from 'react'
+
+import { ICard } from '@/types/ICard.interface'
 
 const CardItem: FC<ICard> = ({ title, description }) => {
 	return (
