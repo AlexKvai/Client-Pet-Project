@@ -10,6 +10,8 @@ import { IAuthForm } from '@/types/auth.types'
 
 import { PAGES } from '@/config/pages-url.config'
 
+import { useAuthContext } from '@/hooks/useAuth'
+
 import { authService } from '@/services/auth.service'
 
 const AuthPage: FC = () => {
@@ -18,10 +20,13 @@ const AuthPage: FC = () => {
 	})
 
 	const { push } = useRouter()
-
+	const { setIsAuth } = useAuthContext()
 	const { mutate } = useMutation({
 		mutationKey: ['login'],
-		mutationFn: (data: IAuthForm) => authService.login(data),
+		mutationFn: (data: IAuthForm) => {
+			setIsAuth(data)
+			return authService.login(data)
+		},
 		onSuccess() {
 			toast.success('Успешная авторизация')
 			reset()
