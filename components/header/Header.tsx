@@ -1,6 +1,7 @@
 'use client'
 
 import { useMutation } from '@tanstack/react-query'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
@@ -35,13 +36,11 @@ const Header: FC = () => {
 							<Link href={'/register'}>Зарегистрироваться</Link>
 						</>
 					) : (
-						<div>
-							<button onClick={() => mutate()}>Выйти</button>
-						</div>
+						<button onClick={() => mutate()}>Выйти</button>
 					)}
 				</div>
 			</div>
 		</>
 	)
 }
-export default Header
+export default dynamic(() => Promise.resolve(Header), { ssr: false })
