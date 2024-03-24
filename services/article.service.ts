@@ -1,17 +1,17 @@
 import { IArticleResponse, TypeArticleFormState } from '@/types/article.types'
 import { IUser } from '@/types/auth.types'
 
-import { axiosWithAuth } from '@/api/interceptors'
+import { axiosClassic, axiosWithAuth } from '@/api/interceptors'
 
 export interface IProfileResponse {
 	user: IUser
 }
 
 class ArticleService {
-	private BASE_URL = '/article'
+	private BASE_URL = '/articles'
 
 	async getAll() {
-		const response = await axiosWithAuth.get<IArticleResponse[]>(this.BASE_URL)
+		const response = await axiosClassic.get<IArticleResponse[]>(this.BASE_URL)
 		return response.data
 	}
 
