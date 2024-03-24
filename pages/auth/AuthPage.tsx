@@ -33,8 +33,7 @@ const AuthPage: FC = () => {
 					push(PAGES.HOME)
 				})
 				.catch(error => {
-					console.error('Ошибка авторизации:', error)
-					toast.error('Произошла ошибка при авторизации')
+					toast.error('Неверный логин или пароль')
 				})
 		}
 	})
@@ -49,8 +48,18 @@ const AuthPage: FC = () => {
 				className='w-1/4 m-auto shadow rounded-xl'
 				onSubmit={handleSubmit(onSubmit)}
 			>
-				<input {...register('email', { required: true })} />
-				<input {...register('password', { required: true })} />
+				<input
+					type='email'
+					placeholder='email@email.ru'
+					className='mb-[10px] text-black'
+					{...register('email', { required: true })}
+				/>
+				<input
+					type='password'
+					placeholder='******'
+					className='mb-[10px] text-black'
+					{...register('password', { required: true })}
+				/>
 				<button type='submit'>Войти</button>
 			</form>
 		</div>
