@@ -1,19 +1,23 @@
 'use client'
 
 import { useMutation } from '@tanstack/react-query'
-import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 
-import { EnumTokens } from '@/services/auth-token.service'
+import { useAuthContext } from '@/hooks/useAuth'
+
 import { authService } from '@/services/auth.service'
 
 const Header: FC = () => {
+	const { isAuth, setIsAuth } = useAuthContext()
 	const router = useRouter()
 	const { mutate } = useMutation({
 		mutationKey: ['logout'],
-		mutationFn: () => authService.logout(),
+		mutationFn: () => {
+			setIsAuth(false)
+			return authService.logout()
+		},
 		onSuccess: () => router.push('/auth')
 	})
 
@@ -25,7 +29,7 @@ const Header: FC = () => {
 					<Link href={'/contacts'}>Связаться с председателем</Link>
 				</div>
 				<div className='flex flex-row gap-x-8'>
-					{!Cookies.get(EnumTokens.ACCESS_TOKEN) ? (
+					{!isAuth ? (
 						<>
 							<Link href={'/auth'}>Войти</Link>
 							<Link href={'/register'}>Зарегистрироваться</Link>
