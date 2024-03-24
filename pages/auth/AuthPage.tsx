@@ -6,6 +6,8 @@ import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
+import Button from '@/components/ui/buttons/Button'
+
 import { IAuthForm } from '@/types/auth.types'
 
 import { PAGES } from '@/config/pages-url.config'
@@ -45,7 +47,7 @@ const AuthPage: FC = () => {
 	return (
 		<div className='flex min-h-screen'>
 			<form
-				className='w-1/4 m-auto shadow rounded-xl'
+				className='w-1/4 m-auto shadow rounded-xl flex flex-col'
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<input
@@ -60,7 +62,10 @@ const AuthPage: FC = () => {
 					className='mb-[10px] text-black'
 					{...register('password', { required: true })}
 				/>
-				<button type='submit'>Войти</button>
+				<Button
+					title='Войти'
+					className='py-[5px] px-[10px] bg-black color-white border-solid border-2 border-sky-500 rounded-lg'
+				/>
 			</form>
 		</div>
 	)
