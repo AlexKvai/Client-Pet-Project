@@ -1,12 +1,17 @@
-import { cardsData } from '@/datas/cardsData'
 import { FC } from 'react'
+
 import CardItem from '../card-item/CardItem'
+
+import { cardsData } from '@/datas/cardsData'
 
 const CardsList: FC = () => {
 	return (
-		<div className='flex flex-wrap  py-[20px] px-[20px] justify-center items-center'>
+		<div className='flex flex-wrap justify-center items-center'>
 			{cardsData.map(cardItem => (
-				<CardItem key={cardItem.title} {...cardItem} />
+				<CardItem
+					key={cardItem.title}
+					{...cardItem}
+				/>
 			))}
 		</div>
 	)
