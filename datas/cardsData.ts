@@ -1,4 +1,4 @@
-import { ICard } from '@/types/ICard.interface'
+import { ICard } from '@/types/card.types'
 
 export const cardsData: Array<ICard> = [
 	{

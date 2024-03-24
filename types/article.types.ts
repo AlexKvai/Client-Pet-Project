@@ -1,7 +1,6 @@
-export interface IArticleResponse {
-	id: string
-	createdAt?: string
-	updatedAt?: string
+import { IBase } from './root.types'
+
+export interface IArticleResponse extends IBase {
 	imageUrl: string
 	title: string
 	description: string
