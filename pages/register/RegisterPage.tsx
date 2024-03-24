@@ -45,7 +45,7 @@ const RegisterPage: FC = () => {
 	}
 
 	return (
-		<div className='flex min-h-screen'>
+		<div className='flex min-h-[800px]'>
 			<form
 				className='flex flex-col w-1/4 m-auto shadow rounded-xl'
 				onSubmit={handleSubmit(onSubmit)}

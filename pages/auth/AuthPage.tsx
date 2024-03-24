@@ -45,9 +45,9 @@ const AuthPage: FC = () => {
 	}
 
 	return (
-		<div className='flex min-h-screen'>
+		<div className='flex min-h-[800px]'>
 			<form
-				className='w-1/4 m-auto shadow rounded-xl flex flex-col'
+				className='m-auto shadow rounded-xl flex flex-col'
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<input
