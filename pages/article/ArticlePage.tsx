@@ -18,7 +18,6 @@ const ArticlePage: FC<IArticlePageProps> = ({ params }) => {
 		queryFn: () => articleService.getOne(params.id)
 	})
 
-	console.log(isFetching)
 	return isFetching ? (
 		<Loader />
 	) : (
