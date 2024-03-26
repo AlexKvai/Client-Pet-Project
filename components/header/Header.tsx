@@ -1,21 +1,22 @@
 'use client'
 
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import toast from 'react-hot-toast'
 
+import { useAdminContext } from '@/hooks/useAdmin'
 import { useAuthContext } from '@/hooks/useAuth'
 
 import Button from '../ui/buttons/Button'
 import Loader from '../ui/loader/Loader'
 
 import { authService } from '@/services/auth.service'
-import { userService } from '@/services/user.service'
 
 const Header: FC = () => {
+	const queryClient = useQueryClient()
 	const { isAuth, setIsAuth } = useAuthContext()
 	const router = useRouter()
 	const { mutate } = useMutation({
@@ -24,13 +25,15 @@ const Header: FC = () => {
 			setIsAuth(false)
 			return authService.logout()
 		},
-		onSuccess: () => router.push('/auth')
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ['getProfile']
+			})
+			router.push('/auth')
+		}
 	})
-	const { data, isLoading } = useQuery({
-		queryKey: ['getProfile'],
-		queryFn: () => userService.getProfile()
-	})
-	return isAuth && isLoading ? (
+	const { isFetching, isLoading, isAdmin } = useAdminContext()
+	return isAuth && isLoading && isFetching ? (
 		<Loader />
 	) : (
 		<div className='flex flex-row justify-between border-solid border-2 border-sky-500 py-[20px] px-[20px]'>
@@ -46,9 +49,7 @@ const Header: FC = () => {
 					</>
 				) : (
 					<>
-						{data?.role === 'admin' && (
-							<Link href={'/article/create'}>Создать статью</Link>
-						)}
+						{isAdmin && <Link href={'/article/create'}>Создать статью</Link>}
 
 						<Button
 							title='Выйти'
