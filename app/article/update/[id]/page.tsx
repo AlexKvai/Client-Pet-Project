@@ -1,7 +1,9 @@
 import { FC } from 'react'
 
-const Page: FC = () => {
-	return <div>Page</div>
+import UpdateArticlePage from '@/pages/update-article/UpdateArticlePage'
+
+const Page: FC = ({ params }: any) => {
+	return <UpdateArticlePage params={params} />
 }
 
 export default Page
