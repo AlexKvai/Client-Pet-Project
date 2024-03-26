@@ -1,4 +1,4 @@
-import { IArticleResponse, TypeArticleFormState } from '@/types/article.types'
+import { IArticleForm, IArticleResponse } from '@/types/article.types'
 import { IUser } from '@/types/auth.types'
 
 import { axiosClassic, axiosWithAuth } from '@/api/interceptors'
@@ -22,12 +22,12 @@ class ArticleService {
 		return response.data
 	}
 
-	async createArticle(data: TypeArticleFormState) {
+	async createArticle(data: IArticleForm) {
 		const response = await axiosWithAuth.post(this.BASE_URL, data)
 		return response
 	}
 
-	async updateArticle(id: string, data: TypeArticleFormState) {
+	async updateArticle(id: string, data: IArticleForm) {
 		const response = await axiosWithAuth.put(`${this.BASE_URL}/${id}`, data)
 		return response
 	}

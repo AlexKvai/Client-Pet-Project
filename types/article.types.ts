@@ -6,6 +6,12 @@ export interface IArticleResponse extends IBase {
 	description: string
 }
 
+export interface IArticleForm {
+	imageUrl?: string
+	title: string
+	description: string
+}
+
 export type TypeArticleFormState = Partial<
 	Omit<IArticleResponse, 'id' | 'updatedAt'>
 >
