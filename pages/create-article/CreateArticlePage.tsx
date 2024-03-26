@@ -65,7 +65,7 @@ const CreateArticlePage: FC = () => {
 					{...register('title', { required: true })}
 				/>
 				<textarea
-					placeholder='Название статьи'
+					placeholder='Описание статьи'
 					className='mb-[10px] text-black'
 					{...register('description', { required: true })}
 				/>
