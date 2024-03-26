@@ -2,9 +2,12 @@
 
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
+import Link from 'next/link'
 import { FC } from 'react'
 
 import Loader from '@/components/ui/loader/Loader'
+
+import { useAdminContext } from '@/hooks/useAdmin'
 
 import { articleService } from '@/services/article.service'
 
@@ -17,7 +20,7 @@ const ArticlePage: FC<IArticlePageProps> = ({ params }) => {
 		queryKey: ['articleGetOne'],
 		queryFn: () => articleService.getOne(params.id)
 	})
-
+	const { isAdmin } = useAdminContext()
 	return isFetching ? (
 		<Loader />
 	) : (
@@ -34,6 +37,9 @@ const ArticlePage: FC<IArticlePageProps> = ({ params }) => {
 			<div className='flex flex-col'>
 				<p>{data?.title}</p>
 				<p>{data?.description}</p>
+				{isAdmin && (
+					<Link href={`/article/update/${params.id}`}>Редактировать</Link>
+				)}
 			</div>
 		</div>
 	)
