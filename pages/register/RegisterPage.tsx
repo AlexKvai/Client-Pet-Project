@@ -1,6 +1,6 @@
 'use client'
 
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -20,7 +20,7 @@ const RegisterPage: FC = () => {
 	const { register, handleSubmit, reset } = useForm<IRegisterForm>({
 		mode: 'onChange'
 	})
-
+	const queryClient = useQueryClient()
 	const { push } = useRouter()
 	const { setIsAuth } = useAuthContext()
 	const { mutate } = useMutation({
@@ -35,8 +35,15 @@ const RegisterPage: FC = () => {
 					push(PAGES.HOME)
 				})
 				.catch(error => {
-					toast.error('Неверные данные для регистрации')
+					toast.error(
+						`${Array.isArray(error.response.data.message) ? error.response.data.message[0] : error.response.data.message}`
+					)
 				})
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ['getProfile']
+			})
 		}
 	})
 
