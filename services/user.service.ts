@@ -2,9 +2,7 @@ import { IUser, TypeUserForm } from '@/types/auth.types'
 
 import { axiosWithAuth } from '@/api/interceptors'
 
-export interface IProfileResponse {
-	user: IUser
-}
+export interface IProfileResponse extends IUser {}
 
 class UserService {
 	private BASE_URL = '/user/profile'
