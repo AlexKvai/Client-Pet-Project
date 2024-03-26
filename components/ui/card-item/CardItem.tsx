@@ -1,14 +1,21 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { FC } from 'react'
 
 import { ICard } from '@/types/card.types'
 
-const CardItem: FC<ICard> = ({ title, description }) => {
+const CardItem: FC<ICard> = ({ title, description, id, imageUrl }) => {
 	return (
-		<div className='flex flex-row h-[255px] w-full items-start justify-start border-solid border-2 border-sky-500 mt-[10px]'>
+		<Link
+			className='flex flex-row h-[255px] w-full items-start justify-start border-solid border-2 border-sky-500 mt-[10px]'
+			href={`/article/${id}`}
+		>
 			<div>
 				<Image
-					src='https://4tololo.ru/sites/default/files/images/20181407165729.jpg'
+					src={
+						imageUrl ||
+						`https://4tololo.ru/sites/default/files/images/20181407165729.jpg`
+					}
 					width={250}
 					height={250}
 					alt='Picture of the author'
@@ -18,7 +25,7 @@ const CardItem: FC<ICard> = ({ title, description }) => {
 				<p>{title}</p>
 				<p>{description}</p>
 			</div>
-		</div>
+		</Link>
 	)
 }
 
