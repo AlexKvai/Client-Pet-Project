@@ -13,18 +13,16 @@ const CardsList: FC = () => {
 		queryKey: ['articleGetAll'],
 		queryFn: () => articleService.getAll()
 	})
-	return (
+	return isLoading ? (
+		<Loader />
+	) : (
 		<div className='flex flex-wrap justify-center items-center'>
-			{isLoading ? (
-				<Loader />
-			) : (
-				data?.map(cardItem => (
-					<CardItem
-						key={cardItem.title}
-						{...cardItem}
-					/>
-				))
-			)}
+			{data?.map(cardItem => (
+				<CardItem
+					key={cardItem.title}
+					{...cardItem}
+				/>
+			))}
 		</div>
 	)
 }
